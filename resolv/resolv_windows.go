@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package resolv
@@ -5,6 +6,7 @@ package resolv
 import (
 	"fmt"
 	"net"
+	"net/netip"
 
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/windows/tunnel/winipcfg"
@@ -44,8 +46,9 @@ func (h *Handler) getDefaultDNSOpts() error {
 		}
 
 		// add only unique IP addresses
-		for _, v := range dns {
-			v := v.To4()
+		for _, ip := range dns {
+			ipByes := ip.As4()
+			v := net.IPv4(ipByes[0], ipByes[1], ipByes[2], ipByes[3])
 			if v == nil {
 				// TODO: support IPv6 in future
 				continue
@@ -76,7 +79,12 @@ func (h *Handler) Set() error {
 		return err
 	}
 
-	err = luid.SetDNS(windows.AF_INET, h.dnsServers, h.dnsSuffixes)
+	dnsServers := make([]netip.Addr, 0)
+	for _, v := range h.origDnsServers {
+		dnsServers = append(dnsServers, netip.MustParseAddr(v.String()))
+	}
+
+	err = luid.SetDNS(windows.AF_INET, dnsServers, h.dnsSuffixes)
 	if err != nil {
 		return fmt.Errorf("failed to set DNS on %s interface: %v", h.name, err)
 	}

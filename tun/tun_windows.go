@@ -3,6 +3,7 @@ package tun
 import (
 	"fmt"
 	"net"
+	"net/netip"
 
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/tun"
@@ -40,8 +41,12 @@ func setInterface(tun *tun.NativeTun, local, gw *net.IPNet, mtu int) error {
 	if err != nil {
 		return fmt.Errorf("failed to set MTU: %s", err)
 	}
+	addresses := make([]netip.Prefix, 0)
+	for _, ipAddr := range []net.IPNet{*local} {
+		addresses = append(addresses, netip.MustParsePrefix(ipAddr.String()))
+	}
 
-	err = luid.SetIPAddresses([]net.IPNet{*local})
+	err = luid.SetIPAddresses(addresses)
 	if err != nil {
 		return fmt.Errorf("failed to set local IP on %s interface: %s", name, err)
 	}

@@ -3,6 +3,7 @@ package route
 import (
 	"fmt"
 	"net"
+	"net/netip"
 
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/windows/tunnel/winipcfg"
@@ -37,7 +38,13 @@ func newHandler(name string, routes []*net.IPNet, gw net.IP, priority int) (*Han
 }
 
 func (h *Handler) routeAdd(dst *net.IPNet) error {
-	err := h.luid.AddRoute(*dst, h.gw, h.priority)
+	// transform dst to windows.IPAddressPrefix
+	dstPrefix := netip.MustParsePrefix(dst.String())
+
+	// transform gw to windows.IpAddress
+	gw := netip.MustParseAddr(h.gw.String())
+
+	err := h.luid.AddRoute(dstPrefix, gw, h.priority)
 	if err != nil {
 		return fmt.Errorf("failed to add %s route to %s interface: %s", dst, h.name, err)
 	}
