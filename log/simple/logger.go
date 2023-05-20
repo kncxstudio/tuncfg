@@ -3,7 +3,7 @@ package simple
 import (
 	golog "log"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 )
 
 type simpleLogger struct {

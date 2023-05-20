@@ -1,3 +1,4 @@
+//go:build linux
 // +build linux
 
 package resolv
@@ -7,7 +8,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 
 	"golang.org/x/sys/unix"
 )

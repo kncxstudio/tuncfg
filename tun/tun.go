@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 	"golang.zx2c4.com/wireguard/tun"
 )
 

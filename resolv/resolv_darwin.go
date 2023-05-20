@@ -1,3 +1,4 @@
+//go:build darwin
 // +build darwin
 
 package resolv
@@ -8,7 +9,7 @@ import (
 	"os/exec"
 	"regexp"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 )
 
 var re = regexp.MustCompile(`(?m)^\(\d+\)\s+(.*)$`)

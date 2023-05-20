@@ -1,3 +1,4 @@
+//go:build darwin || freebsd
 // +build darwin freebsd
 
 package route
@@ -7,7 +8,7 @@ import (
 	"net"
 	"syscall"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 	"golang.org/x/net/route"
 	"golang.org/x/sys/unix"
 )

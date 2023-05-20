@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/IBM/netaddr"
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 )
 
 func New(name string, routes []*net.IPNet, gw net.IP, priority int) (*Handler, error) {

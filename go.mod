@@ -1,4 +1,4 @@
-module github.com/kayrus/tuncfg
+module github.com/kncxstudio/tucfg
 
 go 1.16
 

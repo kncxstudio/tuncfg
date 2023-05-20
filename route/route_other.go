@@ -1,9 +1,10 @@
+//go:build linux || windows
 // +build linux windows
 
 package route
 
 import (
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 )
 
 func (h *Handler) Add() {

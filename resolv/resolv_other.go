@@ -1,3 +1,4 @@
+//go:build !darwin && !windows
 // +build !darwin,!windows
 
 package resolv
@@ -10,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 )
 
 const (

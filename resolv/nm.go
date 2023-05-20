@@ -1,3 +1,4 @@
+//go:build linux
 // +build linux
 
 package resolv
@@ -7,7 +8,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/kayrus/tuncfg/log"
+	"github.com/kncxstudio/tuncfg/log"
 
 	"github.com/godbus/dbus/v5"
 )
